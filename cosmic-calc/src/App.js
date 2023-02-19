@@ -20,7 +20,7 @@ import Leaderboard from "./pages/Leaderboard";
 import YearTwoGames from "./pages/YearTwoGames";
 import YearThreeGames from "./pages/YearThreeGames";
 import YearFourGames from "./pages/YearFourGames";
-// import { GoMute } from "react-icons/go";
+import { GoMute } from "react-icons/go";
 
 export default function App() {
   const authed = auth;
@@ -73,16 +73,17 @@ export default function App() {
   const navigateToRegister = () => {
     navigate("/register");
   };
+
   //console.log(authed.currentUser);
 
   const navigateToLeaderboard = () => {
     navigate("/leaderboard");
   };
 
-  // const mute = () => {
-  //   context.muteSound();
-  //   console.log("app mute");
-  // };
+  const mute = () => {
+    context.muteSound();
+    console.log("app mute");
+  };
 
   return (
     <div className="App">
@@ -116,7 +117,11 @@ export default function App() {
               }
             ></button>
           )}
-          {location.pathname !== "/game" && (
+          {location.pathname === "/game" ||
+          location.pathname === "/progress" ||
+          location.pathname === "/YearTwoGames" ||
+          location.pathname === "/YearThreeGames" ||
+          location.pathname === "/YearFourGames" ? null : (
             <button
               onClick={navigateToGame}
               onMouseOver={playHover}
@@ -134,9 +139,9 @@ export default function App() {
               Leader board
             </button>
           )}
-          {/* <button classname="muteButton" onClick={mute}>
-            <GoMute size={50} />
-          </button> */}
+          <button classname="muteButton" onClick={mute}>
+            <GoMute size={50} color={context.mute ? null : "red"} />
+          </button>
         </div>
       ) : (
         <div className="navBarLoginDiv">
@@ -146,7 +151,7 @@ export default function App() {
               onMouseOver={playHover}
               onClick={navigateToLogin}
             >
-              Login
+              Login more
             </button>
           )}
           {location.pathname !== "/register" && (
@@ -158,9 +163,13 @@ export default function App() {
               Register
             </button>
           )}
-          {/* <button classname="muteButton" onClick={mute}>
-            <GoMute size={50} />
-          </button> */}
+          <button classname="muteButton" onClick={mute}>
+            <GoMute
+              size={50}
+              color={context.mute ? null : "red"}
+              style={{ borderRadius: 0.5 }}
+            />
+          </button>
         </div>
       )}
       <Routes>

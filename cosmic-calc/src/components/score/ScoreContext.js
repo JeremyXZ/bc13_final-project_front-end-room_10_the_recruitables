@@ -7,11 +7,14 @@ export const ScoreContext = createContext();
 function ScoreProvider({ children }) {
   const [score, setScore] = useState(0);
   const [user, setUser] = useState(null);
+
   const [year, setYear] = useState(0);
   const [data, setData] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mute, setMute] = useState(true);
+  console.log("mute", mute);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       retrieveUserData(user);
@@ -35,12 +38,6 @@ function ScoreProvider({ children }) {
     return data.payload;
   };
 
-  const [level, setLevel] = useState(0);
-
-  function updateLevel(i) {
-    setLevel(i);
-  }
-
   const muteSound = () => {
     setMute(!mute);
   };
@@ -55,7 +52,6 @@ function ScoreProvider({ children }) {
         name: name,
         data: data,
         email: email,
-        updateLevel: updateLevel,
         year: year,
         muteSound: muteSound,
         mute: mute,
